@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review project</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+      #review-area {
+        background-color: #edf6fa;
+        height: 100vh;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        height: 90vh;
+        padding: 0px 80px;
+      }
+      .title {
+        font-size: 20px;
+        color: #333;
+        letter-spacing: 2.5px;
+      }
+      .underline {
+        width: 70px;
+        height: 3px;
+        margin: 6px auto;
+        background: rgb(0, 174, 255);
+      }
+      .image-container {
+        background: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: 60vh;
+        box-shadow: 0px 1px 15px #ddd;
+        border-radius: 5px;
+      }
+      .person-info img {
+        width: 50%;
+        border-radius: 50px;
+      }
+      .author {
+        font-size: 14px;
+        text-transform: capitalize;
+        letter-spacing: 1.5px;
+        padding-top: 15px;
+        color: #333;
+      }
+      .job {
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: rgb(115, 199, 252);
+        padding-top: 6px;
+      }
+      .text {
+        font-size: 13px;
+        text-align: center;
+        width: 80%;
+        line-height: 18px;
+        padding: 10px 0px;
+        color: #333;
+      }
+      .btns {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding-bottom: 10px;
+      }
+      .btn {
+        border: none;
+        background: transparent;
+        font-weight: bolder;
+        font-size: 20px;
+        margin: 0px 10px;
+        color: lightskyblue;
+        cursor: default;
+        padding: 3px;
+        transition: all 0.5s ease;
+      }
+      .btn:hover {
+        background: lightskyblue;
+        color: #f1f1f1;
+      }
+      .random-btn {
+        border: 2px solid rgb(57, 183, 214);
+        background: rgba(135, 206, 250, 0.178);
+        border-radius: 8px;
+        padding: 4px 10px;
+        color: rgb(57, 183, 214);
+        font-size: 11px;
+        /* margin: 5px 0px; */
+        transition: all 0.5s ease;
+      }
+      .random-btn:hover {
+        background: rgba(135, 206, 250, 0.356);
+      }
+    </style>
+  </head>
+  <body>
+    <section id="review-area">
+      <div class="container">
+        <!-- title -->
+        <div class="title">
+          <h1>Our Reviews</h1>
+          <div class="underline"></div>
+        </div>
+        <!-- image container -->
+        <div class="image-container">
+          <div class="person-info">
+            <img src="images/1.jpg" alt="" />
+            <h2 class="author">Bill Anderson</h2>
+            <h4 class="job">Web Developer</h4>
+          </div>
+          <div class="text">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro
+            labore sequi atque harum impedit illum molestiae laborum expedita!
+            Aperiam, adipisci!
+          </div>
+          <!-- buttons  -->
+          <div class="btns">
+            <button class="btn prev-btn">></button>
+            <button class="btn next-btn">></button>
+          </div>
+          <!-- random button -->
+          <button class="random-btn">Surprise Me</button>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // local reviews data
+      const reviews = [
+        {
+          id: 1,
+          name: "Bill Anderson",
+          job: "Web Developer",
+          img: "images/1.jpg",
+          text: "I'm baby meggings twee health goth +1. Bicyle rights tumeric chartreuse brfore they sold out chambry phoodie, cold-pressed four dollar toast everyday carry",
+        },
+        {
+          id: 2,
+          name: "susan smith",
+          job: "Web Designer",
+          img: "images/2.jpg",
+          text: "Helvetica artisan kinfolk thundercats lumbersexual blue bottle. Disrupt glossier gastropub deep v vice franzen hell or brooklyn twee enamel pin fashion axe.photo booth jean shorts artisan narwhal.",
+        },
+        {
+          id: 3,
+          name: "anna johnson",
+          job: "ux designer",
+          img: "images/3.jpg",
+          text: "Sriracha literally flexitarian irony, vape marfa unicorn. Glossier tattooed 8-bit, fixie waistcoat offal activated charcoal slow-carb marfa hell of pabst raclette post-ironic j ianbing swag.",
+        },
+      ];
+
+      // Select items
+      const img = document.querySelector(".person-info img");
+      const author = document.querySelector(".author");
+      const job = document.querySelector(".job");
+      const info = document.querySelector(".text");
+
+      const prevBtn = document.querySelector(".prev-btn");
+      const nextBtn = document.querySelector(".next-btn");
+      const randomBtn = document.querySelector(".random-btn");
+
+      window.addEventListener("DOMContentLoaded", function () {
+        // callback function
+        showPerson();
+      });
+
+      // set initial value
+      let currentItem = 0;
+
+      // create a showPerson function
+      function showPerson() {
+        const item = reviews[currentItem];
+        img.src = item.img;
+        author.textContent = item.name;
+        job.textContent = item.job;
+        info.textContent = item.text;
+      }
+
+      // Show next person when click the next button
+
+      nextBtn.addEventListener("click", () => {
+        currentItem++;
+        if (currentItem > reviews.length - 1) {
+          currentItem = 0;
+        }
+        showPerson();
+      });
+
+      // Show prev person when click the prev button
+
+      prevBtn.addEventListener("click", () => {
+        currentItem--;
+        if (currentItem < 0) {
+          currentItem = reviews.length - 1;
+        }
+        showPerson();
+      });
+
+      // show random person when click the random btn
+      randomBtn.addEventListener("click", () => {
+        currentItem = Math.floor(Math.random() * reviews.length);
+        showPerson();
+
+        console.log(currentItem);
+      });
+    </script>
+  </body>
+</html>
